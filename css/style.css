@@ -1,0 +1,324 @@
+body {
+    background-color: #E3E7E8;
+    font-family: system-ui;
+    font-size: 16px;
+}
+
+.container {
+    width: 100%;
+    max-width: 1000px;
+    margin: auto;
+    transition: 0.5s;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+}
+
+header .shopping {
+    position: relative;
+    text-align: center;
+}
+
+header .shopping img {
+    width: 30px;
+    display: block;
+    margin: 0 auto;
+}
+
+header .shopping .shopping-info {
+    position: absolute;
+    bottom: -20px;
+    left: 50%; /* Сдвигаем влево на половину ширины */
+    transform: translateX(-50%);
+}
+
+header .shopping p {
+    margin: 0;
+    display: inline-block;
+}
+
+header .shopping span {
+    background: red;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    position: absolute;
+    top: -5px;
+    right: -8px;
+    padding: 1px 6px;
+}
+
+select {
+    width: 100%;
+    outline: none;
+    margin: 10px 0;
+    padding: 10px;
+    font-size: 14px;
+    border: 2px solid silver;
+    border-radius: 5px;
+}
+
+.list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-top: 20px;
+    justify-content: space-between;
+}
+
+.list .item {
+    width: calc(33.33% - 20px);
+    box-sizing: border-box;
+    text-align: center;
+    background-color: #DCE0E1;
+    padding: 20px;
+    box-shadow: 0 10px 10px #757676;
+    letter-spacing: 1px;
+    margin-bottom: 20px;
+}
+
+.list .item img {
+    width: 100%;
+    height: auto;
+    max-height: 250px;
+    object-fit: cover;
+}
+
+.list .item .title {
+    font-weight: 600;
+}
+
+.list .item .price {
+    margin: 10px;
+}
+
+.list .item button {
+    background-color: #1C1F25;
+    color: #fff;
+    width: 100%;
+    padding: 10px;
+    transition: background-color 0.3s;
+}
+
+.list .item button:hover {
+    background-color: #E8BC0E;
+}
+
+.card {
+    position: fixed;
+    top: 0;
+    left: 100%;
+    width: 500%;
+    max-width: 500px;
+    background-color: #453E3B;
+    height: 100vh;
+    transition: 0.5s;
+}
+
+.active .card {
+    left: calc(100% - 500px);
+}
+
+.active .container {
+    transform: translateX(-200px);
+}
+
+.card h1 {
+    color: #E8BC0E;
+    font-weight: 100;
+    margin: 0;
+    padding: 0 20px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+}
+
+.card .checkOut {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.card .checkOut div {
+    background-color: #E8BC0E;
+    width: 100%;
+    height: 70px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.card .checkOut div:nth-child(2) {
+    background-color: #1C1F25;
+    color: #fff;
+}
+
+.listCard li {
+    display: grid;
+    grid-template-columns: 100px repeat(3, 1fr);
+    color: #fff;
+    row-gap: 10px;
+}
+
+.listCard li div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.listCard li img {
+    width: 100%;
+    height: auto;
+    max-height: 80px;
+}
+
+.listCard li button {
+    background-color: #fff5;
+    border: none;
+}
+
+.listCard .count {
+    margin: 0 10px;
+}
+
+@media (max-width: 768px) {
+    body {
+        font-size: 18px;
+    }
+
+    header {
+        margin-top: 10px;
+    }
+	
+	header h1 {
+		margin-left: 20px;
+	}
+	
+	header .shopping img {
+        width: 30px;
+		margin-right: 20px;
+    }
+	
+	header .shopping span {
+        background: red;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: #fff;
+        position: absolute;
+        top: -8px;
+        right: -8px;
+        padding: 3px 8px;
+		margin-right: 20px;
+    }
+
+    .list {
+        gap: 0;
+        margin-top: 10px;
+        overflow-x: auto; /* Добавим горизонтальный скролл, если элементов не умещается по ширине экрана */
+        -webkit-overflow-scrolling: touch; /* Поддержка плавного скролла в iOS */
+    }
+
+    .list .item {
+        width: 60%; /* Одна строка, поэтому 100% ширина */
+		text-align: center;
+		margin: 0 auto;
+        margin-bottom: 30px;
+    }
+	
+	.card {
+        position: fixed;
+        top: 0;
+        left: 100%;
+        width: 100%;
+        max-width: 500px;
+        background-color: #453E3B;
+        height: 100vh;
+        transition: 0.5s;
+        overflow-y: auto; /* Добавлено для возможности прокрутки на мобильных устройствах */
+    }
+
+    .active .card {
+        left: 0; /* При активации, элемент смещается влево и становится видимым на экране */
+    }
+
+    .active .container {
+        transform: translateX(-100%); /* При активации, контейнер смещается влево на 100% ширины экрана */
+    }
+}
+
+/* Добавленные стили для всплывающей формы */
+.overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+#form {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    z-index: 1000;	
+	width: 90%;
+    flex-direction: column;
+    padding: 20px;
+    box-sizing: border-box;
+    text-align: center;
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+#form label{
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+#form input{
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+	padding: 10px 15px;
+    margin-top: 10px;
+}
+#form button {
+	text-align: center;
+    display: block;
+    margin: 10px auto;
+	background-color: #1C1F25;
+    color: white;
+    padding: 10px;
+    cursor: pointer;
+}
+
+#form label {
+    font-weight: bold;
+}
+
+#form label span {
+    color: red;
+}
+
+/* Скрыть форму изначально */
+.hidden-form {
+    opacity: 0;
+    pointer-events: none;
+}
