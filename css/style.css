@@ -205,11 +205,11 @@ select {
 	}
 	
 	header .shopping img {
-        width: 30px;
+                width: 30px;
 		margin-right: 20px;
     }
 	
-	header .shopping span {
+    header .shopping span {
         background: red;
         border-radius: 50%;
         display: flex;
@@ -223,19 +223,36 @@ select {
 		margin-right: 20px;
     }
 
+    header .shopping p {
+        margin: 0;
+        display: inline-block;
+	margin-left: -20px; /* Добавлено смещение влево на 10px */
+    }
+
     .list {
         gap: 0;
         margin-top: 10px;
-        overflow-x: auto; /* Добавим горизонтальный скролл, если элементов не умещается по ширине экрана */
-        -webkit-overflow-scrolling: touch; /* Поддержка плавного скролла в iOS */
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
     }
 
     .list .item {
-        width: 60%; /* Одна строка, поэтому 100% ширина */
-		text-align: center;
-		margin: 0 auto;
+        width: 48%;
+        text-align: center;
         margin-bottom: 30px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: stretch; /* Новое свойство для растяжения элементов */
     }
+
+    .list .item .price {
+        margin: 10px;
+        flex-grow: 1; /* Новое свойство для занимаемости всего доступного пространства */
+    }  
 	
 	.card {
         position: fixed;
