@@ -249,6 +249,11 @@ select {
         align-items: stretch; /* Новое свойство для растяжения элементов */
     }
 
+    .list .item .title {
+        font-weight: 600;
+        font-size: 14px; /* Добавлено свойство font-size */
+    }
+
     .list .item .price {
         margin: 10px;
         flex-grow: 1; /* Новое свойство для занимаемости всего доступного пространства */
