@@ -24,7 +24,7 @@ header .shopping {
 }
 
 header .shopping img {
-    width: 30px;
+    width: 40px;
     display: block;
     margin: 0 auto;
 }
@@ -205,7 +205,7 @@ select {
 	}
 	
 	header .shopping img {
-                width: 30px;
+                width: 40px;
 		margin-right: 20px;
     }
 	
@@ -220,7 +220,7 @@ select {
         top: -8px;
         right: -8px;
         padding: 3px 8px;
-		margin-right: 20px;
+	margin-right: 10px;
     }
 
     header .shopping p {
