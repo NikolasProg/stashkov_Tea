@@ -103,6 +103,7 @@ let listCards = {};
 products.forEach((product) => {
     let newDiv = document.createElement('div');
     newDiv.classList.add('item');
+    newDiv.setAttribute('data-key', product.id);  // Добавьте эту строку для уникального ключа
     newDiv.innerHTML = `
         <img src="image/${product.image}" data-description="${product.description}" class="picture">
         <div class="title">${product.name}</div>
@@ -158,14 +159,69 @@ function getFormattedPrice(price) {
     return price !== 'такого объёма нет' ? String(price).replace(/р$/, '') + 'р' : 'такого объёма нет';
 }
 
+// Анимация
+function addToCartAnimation(productKey) {
+    const item = document.querySelector(`.item[data-key="${productKey}"]`);
+    const img = item.querySelector('img');
+
+    // Дублируем картинку
+    const clone = img.cloneNode(true);
+
+    // Применяем стили к клону
+    clone.style.opacity = '0.8';
+    clone.style.position = 'absolute';
+    clone.style.height = '150px';
+    clone.style.width = '150px';
+    clone.style.objectFit = 'cover';
+    clone.style.zIndex = '100';
+    clone.style.transition = 'all 1s ease-in-out';
+
+    // Устанавливаем начальные координаты клонированной картинки
+    clone.style.top = `${img.offsetTop}px`;
+    clone.style.left = `${img.offsetLeft}px`;
+
+    document.body.appendChild(clone);
+
+    const shoppingCart = document.querySelector('.shopping');
+    const cartRect = shoppingCart.getBoundingClientRect();
+
+    // Задаем координаты, куда должен двигаться клон
+    clone.style.top = `${cartRect.top + 5}px`;
+    clone.style.left = `${cartRect.left + 5}px`;
+    clone.style.width = '75px';
+    clone.style.height = '75px';
+
+    // Событие, которое происходит после завершения анимации
+    clone.addEventListener('transitionend', () => {
+        document.body.removeChild(clone);
+    });
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+    // Получите все элементы с классом 'item'
+    let items = document.querySelectorAll('.item');
+
+    // Добавьте обработчик события для каждого элемента
+    items.forEach(function (item) {
+        let button = item.querySelector('button');
+
+        // Добавьте обработчик события для клика на кнопку "Добавить в корзину"
+        button.addEventListener('click', function () {
+            // Получите значение data-key из атрибута 'data-key'
+            let productKey = item.getAttribute('data-key');
+
+            // Вызов функции для анимации добавления в корзину
+            addToCartAnimation(productKey);
+        });
+    });
+});
+
 function addToCard(key) {
     const selectedVolume = document.getElementById(`user_obym_${key}`).value;
     const productKey = `${key}_${selectedVolume}`;
 
-    // Проверка, есть ли у выбранного объема действительная цена
     if (products[key - 1].prices[selectedVolume] !== 'такого объёма нет') {
         if (!listCards[productKey]) {
-            // Товара еще нет в корзине, добавляем новый
             listCards[productKey] = {
                 ...products[key - 1],
                 quantity: 1,
@@ -173,17 +229,19 @@ function addToCard(key) {
                 price: products[key - 1].prices[selectedVolume]
             };
         } else {
-            // Товар уже в корзине, увеличиваем количество и обновляем цену
             listCards[productKey].quantity++;
             listCards[productKey].price = products[key - 1].prices[selectedVolume] * listCards[productKey].quantity;
         }
 
         reloadCard();
+
+        // Добавим вызов функции для анимации
+        addToCartAnimation(key, selectedVolume);
+
     } else {
         alert('Такого объёма нет. Выберите другой объем.');
     }
-	
-	// Обновление текста "Корзина" с суммой товаров
+
     updateShoppingText();
 }
 
@@ -309,4 +367,20 @@ overlay.addEventListener('click', () => {
         overlay.style.display = 'none';
         form.style.display = 'none';
     }, 300);
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+    // Получите все элементы с классом 'item'
+    let items = document.querySelectorAll('.item');
+
+    // Добавьте обработчик события для каждого элемента
+    items.forEach(function (item, index) {
+        let button = item.querySelector('button');
+
+        // Добавьте обработчик события для клика на кнопку "Добавить в корзину"
+        button.addEventListener('click', function () {
+            // Вызов функции для анимации добавления в корзину
+            addToCartAnimation(index + 1); // Индекс + 1 соответствует ID продукта
+        });
+    });
 });
